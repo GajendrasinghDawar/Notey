@@ -43,9 +43,7 @@ import {
 import {
   type JSX,
   startTransition,
-  useActionState,
   useEffect,
-  useOptimistic,
   useRef,
   useState,
 } from 'react';
@@ -91,8 +89,18 @@ export default function ActionsPlugin({
   const showFlashMessage = useFlashMessage();
   const {isCollabActive} = useCollaborationContext();
   const unregisterTransformRef = useRef(() => {});
-  const [mode, dispatchMode, isPending] = useActionState(
-    async (prevMode: EditorMode, nextMode: EditorMode): Promise<EditorMode> => {
+  const [mode, setMode] = useState<EditorMode>('wysiwyg');
+  const [isPending, setIsPending] = useState(false);
+  const isMarkdown = mode === 'markdown';
+  const isHtml = mode === 'html';
+
+  const toggleMode = async (targetMode: 'html' | 'markdown') => {
+    let nextMode = mode === 'wysiwyg' ? targetMode : mode === targetMode ? 'wysiwyg' : mode;
+    if (mode === nextMode) {
+      return;
+    }
+    setIsPending(true);
+    try {
       const pagesDisabled = getPeerDependencyFromEditor<typeof PagesExtension>(
         editor,
         PagesExtension.name,
@@ -100,10 +108,8 @@ export default function ActionsPlugin({
       if (pagesDisabled !== undefined) {
         pagesDisabled.value = true;
       }
+      let prevMode = mode;
       if (prevMode === 'wysiwyg') {
-        // handle transitions from wysiwyg -> nextMode -> wysiwyg when there's a single
-        // root child CodeNode that is the nextMode language. e2e tests assume you can
-        // do this.
         editor.read(() => {
           const root = $getRoot();
           const codeNode =
@@ -177,13 +183,11 @@ export default function ActionsPlugin({
           codeNode.select(0, 0);
         });
       }
-      return nextMode;
-    },
-    'wysiwyg',
-  );
-  const [optimisticMode, setOptimisticMode] = useOptimistic<EditorMode>(mode);
-  const isMarkdown = optimisticMode === 'markdown';
-  const isHtml = optimisticMode === 'html';
+      setMode(nextMode);
+    } finally {
+      setIsPending(false);
+    }
+  };
 
   useEffect(() => {
     const pagesDisabled = getPeerDependencyFromEditor<typeof PagesExtension>(
@@ -266,22 +270,6 @@ export default function ActionsPlugin({
       });
     });
   }, [editor]);
-
-  const toggleMode = (targetMode: 'html' | 'markdown') => {
-    startTransition(() => {
-      const nextMode =
-        mode === 'wysiwyg'
-          ? targetMode
-          : mode === targetMode
-            ? 'wysiwyg'
-            : mode;
-      if (mode === nextMode) {
-        return;
-      }
-      setOptimisticMode(nextMode);
-      dispatchMode(nextMode);
-    });
-  };
 
   return (
     <div className="actions">
