@@ -176,7 +176,6 @@ export default function Editor(): JSX.Element {
         <div>{showTableOfContents && <TableOfContentsPlugin />}</div>
         {shouldUseLexicalContextMenu && <ContextMenuPlugin />}
       </div>
-      {showTreeView && <TreeViewPlugin />}
     </>
   );
 }
