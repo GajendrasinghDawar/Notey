@@ -17,8 +17,10 @@
    ════════════════════════════════════════════════════ */
 
 .editor-shell {
-  margin: 0 auto;
-  border-radius: 0;
+  margin: 0 !important;
+  max-width: none !important;
+  width: 100% !important;
+  border-radius: 0 !important;
   color: var(--color-slate12);
   font-family: var(--font-sans);
   line-height: 1.7;
@@ -26,8 +28,7 @@
 
 .editor-shell .editor-container {
   background: var(--color-slate1);
-  border-bottom-left-radius: 0.5rem;
-  border-bottom-right-radius: 0.5rem;
+  border-radius: 0;
 }
 
 .editor-shell .editor-container.tree-view {

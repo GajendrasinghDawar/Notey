@@ -12,7 +12,7 @@ export const isDevPlayground: boolean =
   hostName !== 'lexical-playground.vercel.app';
 
 export const DEFAULT_SETTINGS = {
-  emptyEditor: isDevPlayground,
+  emptyEditor: true,
   hasFitNestedTables: false,
   hasLinkAttributes: false,
   hasNestedTables: false,
@@ -36,7 +36,7 @@ export const DEFAULT_SETTINGS = {
   shouldUseLexicalContextMenu: false,
   showNestedEditorTreeView: false,
   showTableOfContents: false,
-  showTreeView: true,
+  showTreeView: false,
   tableCellBackgroundColor: true,
   tableCellMerge: true,
   tableHorizontalScroll: true,
