@@ -1,0 +1,863 @@
+/**
+ * ── Notey Theme Overrides for Lexical Playground ──
+ *
+ * Maps the Lexical playground's hardcoded colors (Facebook blue, #fff, #eee)
+ * to the app's Radix-inspired 12-step color scale (slate, yellow, crimson).
+ *
+ * Color mapping philosophy (from docs/color_scale.md):
+ *   Steps 1-2  → backgrounds
+ *   Steps 3-5  → component bg / hover / active
+ *   Steps 6-8  → borders (subtle → strong)
+ *   Steps 9-10 → solid accents / hover
+ *   Steps 11-12 → text (low / high contrast)
+ */
+
+/* ════════════════════════════════════════════════════
+   1. EDITOR SHELL & CONTAINER
+   ════════════════════════════════════════════════════ */
+
+.editor-shell {
+  margin: 0 auto;
+  border-radius: 0;
+  color: var(--color-slate12);
+  font-family: var(--font-sans);
+  line-height: 1.7;
+}
+
+.editor-shell .editor-container {
+  background: var(--color-slate1);
+  border-bottom-left-radius: 0.5rem;
+  border-bottom-right-radius: 0.5rem;
+}
+
+.editor-shell .editor-container.tree-view {
+  border-radius: 0;
+}
+
+.editor-shell .editor-container.plain-text {
+  border-top-left-radius: 0.5rem;
+  border-top-right-radius: 0.5rem;
+}
+
+/* ════════════════════════════════════════════════════
+   2. TOOLBAR
+   ════════════════════════════════════════════════════ */
+
+.toolbar {
+  background: var(--color-slate2);
+  border-bottom: 1px solid var(--color-slate6);
+  border-top-left-radius: 0.5rem;
+  border-top-right-radius: 0.5rem;
+  padding: 4px 6px;
+  gap: 2px;
+  scrollbar-color: var(--color-slate6) transparent;
+}
+
+/* Toolbar buttons */
+button.toolbar-item {
+  border-radius: 0.375rem;
+  padding: 6px 8px;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.toolbar-item:hover:not([disabled]) {
+  background-color: var(--color-slate4);
+}
+
+button.toolbar-item.active {
+  background-color: var(--color-yellowA3);
+}
+
+button.toolbar-item.active i {
+  opacity: 1;
+}
+
+.toolbar .toolbar-item:focus {
+  outline: 2px solid var(--color-crimson8);
+  outline-offset: -1px;
+}
+
+.toolbar .toolbar-item:focus:not(:focus-visible) {
+  outline: none;
+}
+
+.toolbar .toolbar-item:focus-visible {
+  outline: 2px solid var(--color-crimson8);
+  outline-offset: -1px;
+}
+
+/* Toolbar text labels */
+.toolbar .toolbar-item .text {
+  color: var(--color-slate11);
+  font-size: 13px;
+  font-family: var(--font-sans);
+}
+
+/* Toolbar icons — use slate11 instead of CanvasText for softer look */
+.toolbar .toolbar-item .icon {
+  background-color: var(--color-slate11);
+}
+
+button.toolbar-item i.format {
+  background-color: var(--color-slate11);
+  opacity: 0.7;
+}
+
+button.toolbar-item.active i.format {
+  background-color: var(--color-yellow12);
+  opacity: 1;
+}
+
+/* Toolbar dividers */
+.toolbar .divider {
+  background-color: var(--color-slate6);
+  margin: 0 2px;
+}
+
+/* Chevron icons */
+i.chevron-down {
+  background-color: var(--color-slate9);
+}
+
+/* ════════════════════════════════════════════════════
+   3. DROPDOWN MENUS
+   ════════════════════════════════════════════════════ */
+
+.dropdown {
+  background-color: var(--color-slate1);
+  border: 1px solid var(--color-slate6);
+  border-radius: 0.5rem;
+  box-shadow: var(--shadow-4);
+  min-height: auto;
+}
+
+.dropdown .item {
+  color: var(--color-slate12);
+  background-color: transparent;
+  border-radius: 0.375rem;
+  font-size: 14px;
+  font-family: var(--font-sans);
+  transition: background-color 0.1s ease;
+}
+
+.dropdown .item:hover {
+  background-color: var(--color-slate4);
+}
+
+.dropdown .item .shortcut {
+  color: var(--color-slate9);
+  font-size: 12px;
+}
+
+.dropdown .item .icon {
+  background-color: var(--color-slate11);
+}
+
+.dropdown .item .text {
+  color: var(--color-slate12);
+  font-family: var(--font-sans);
+}
+
+.dropdown .divider {
+  background-color: var(--color-slate6);
+  margin: 4px 8px;
+}
+
+/* Active dropdown item */
+button.item.dropdown-item-active {
+  background-color: var(--color-yellowA3);
+}
+
+button.item.dropdown-item-active i {
+  opacity: 1;
+}
+
+button.item.dropdown-item-active .icon {
+  background-color: var(--color-yellow12);
+}
+
+/* ════════════════════════════════════════════════════
+   4. TYPEAHEAD / AUTOCOMPLETE POPOVERS
+   ════════════════════════════════════════════════════ */
+
+.typeahead-popover {
+  background: var(--color-slate1);
+  border: 1px solid var(--color-slate6);
+  box-shadow: var(--shadow-4);
+  border-radius: 0.5rem;
+}
+
+.typeahead-popover ul li {
+  font-family: var(--font-sans);
+  color: var(--color-slate12);
+  border-radius: 0.375rem;
+}
+
+.typeahead-popover ul li.selected {
+  background: var(--color-slate4);
+}
+
+.typeahead-popover li {
+  color: var(--color-slate12);
+  background-color: transparent;
+}
+
+.typeahead-popover li:hover {
+  background-color: var(--color-slate4);
+}
+
+.typeahead-popover li .icon {
+  background-color: var(--color-slate11);
+}
+
+/* ════════════════════════════════════════════════════
+   5. CONTENT EDITABLE AREA
+   ════════════════════════════════════════════════════ */
+
+.ContentEditable__root {
+  font-family: var(--font-sans);
+  color: var(--color-slate12);
+  font-size: 15px;
+  line-height: 1.7;
+  caret-color: var(--color-crimson9);
+  padding: 12px 28px 40px;
+}
+
+.ContentEditable__root::selection {
+  background-color: var(--color-crimsonA3);
+  color: var(--color-slate12);
+}
+
+.ContentEditable__placeholder {
+  color: var(--color-slate9);
+  font-family: var(--font-sans);
+  font-size: 15px;
+  left: 28px;
+}
+
+@media (max-width: 1025px) {
+  .ContentEditable__root {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+  .ContentEditable__placeholder {
+    left: 12px;
+    right: 12px;
+  }
+}
+
+/* ════════════════════════════════════════════════════
+   6. ACTION BUTTONS (bottom-right bar)
+   ════════════════════════════════════════════════════ */
+
+.action-button {
+  background-color: var(--color-slate3);
+  color: var(--color-slate11);
+  border: 1px solid var(--color-slate6);
+  border-radius: 0.5rem;
+  padding: 6px 10px;
+  font-family: var(--font-sans);
+  transition: all 0.15s ease;
+}
+
+.action-button:hover {
+  background-color: var(--color-slate4);
+  color: var(--color-slate12);
+  border-color: var(--color-slate7);
+}
+
+.action-button[data-active='true'] {
+  background-color: var(--color-yellow3);
+  border-color: var(--color-yellow7);
+  filter: none;
+}
+
+.action-button[data-active='true']:hover {
+  background-color: var(--color-yellow4);
+  filter: none;
+}
+
+.action-button[data-active='true'] i {
+  background-color: var(--color-yellow12);
+}
+
+button.action-button:disabled {
+  background: var(--color-slate3);
+  border-color: var(--color-slate5);
+  opacity: 0.5;
+}
+
+.actions i {
+  background-color: var(--color-slate11);
+}
+
+/* ════════════════════════════════════════════════════
+   7. LINK EDITOR
+   ════════════════════════════════════════════════════ */
+
+.link-editor .link-input {
+  background-color: var(--color-slate3);
+  border: 1px solid var(--color-slate6);
+  border-radius: 0.375rem;
+  color: var(--color-slate12);
+  font-family: var(--font-sans);
+  padding: 8px 12px;
+}
+
+.link-editor .link-input:focus {
+  border-color: var(--color-crimson8);
+  box-shadow: 0 0 0 1px var(--color-crimson8);
+}
+
+.link-editor .link-input a {
+  color: var(--color-crimson9);
+}
+
+.link-editor .link-input a:hover {
+  color: var(--color-crimson10);
+}
+
+.link-editor .link-view {
+  color: var(--color-slate12);
+  font-family: var(--font-sans);
+}
+
+.link-editor .link-view a {
+  color: var(--color-crimson9);
+}
+
+.link-editor .button.active,
+.toolbar .button.active {
+  background-color: var(--color-yellowA3);
+}
+
+/* ════════════════════════════════════════════════════
+   8. MODALS
+   ════════════════════════════════════════════════════ */
+
+.Modal__overlay {
+  background-color: var(--color-blackA6);
+  backdrop-filter: blur(4px);
+}
+
+.Modal__modal {
+  background-color: var(--color-slate1);
+  border: 1px solid var(--color-slate6);
+  box-shadow: var(--shadow-6);
+  border-radius: 0.75rem;
+  padding: 24px;
+  font-family: var(--font-sans);
+  color: var(--color-slate12);
+}
+
+.Modal__modal:focus {
+  outline: none;
+}
+
+.Modal__modal :focus {
+  outline: 2px solid var(--color-crimson8);
+  outline-offset: 2px;
+}
+
+.Modal__title {
+  color: var(--color-slate12);
+  font-weight: 600;
+  font-size: 1.125rem;
+  border-bottom: 1px solid var(--color-slate6);
+  padding-bottom: 12px;
+  margin-bottom: 0;
+}
+
+.Modal__closeButton {
+  background-color: var(--color-slate3);
+  color: var(--color-slate11);
+  border-radius: 0.375rem;
+  width: 28px;
+  height: 28px;
+  font-size: 12px;
+  transition: background-color 0.15s ease;
+}
+
+.Modal__closeButton:hover {
+  background-color: var(--color-slate5);
+  color: var(--color-slate12);
+}
+
+/* ════════════════════════════════════════════════════
+   9. BUTTONS (UI)
+   ════════════════════════════════════════════════════ */
+
+.Button__root {
+  background-color: var(--color-slate3);
+  color: var(--color-slate12);
+  border: 1px solid var(--color-slate6);
+  border-radius: 0.375rem;
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-weight: 500;
+  padding: 8px 16px;
+  transition: all 0.15s ease;
+}
+
+.Button__root:hover {
+  background-color: var(--color-slate4);
+  border-color: var(--color-slate7);
+}
+
+.Button__root:focus-visible {
+  outline: 2px solid var(--color-crimson8);
+  outline-offset: 2px;
+}
+
+.Button__disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.Button__disabled:hover {
+  background-color: var(--color-slate3);
+}
+
+/* ════════════════════════════════════════════════════
+   10. DIALOG
+   ════════════════════════════════════════════════════ */
+
+.dialog-dropdown {
+  background-color: var(--color-slate3) !important;
+  border: 1px solid var(--color-slate6);
+  border-radius: 0.375rem;
+  color: var(--color-slate12);
+}
+
+/* ════════════════════════════════════════════════════
+   11. INPUT & SELECT (Lexical UI)
+   ════════════════════════════════════════════════════ */
+
+.Input__wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.Input__label {
+  color: var(--color-slate11);
+  font-size: 13px;
+  font-weight: 500;
+  font-family: var(--font-sans);
+}
+
+.Input__input {
+  background-color: var(--color-slate3);
+  border: 1px solid var(--color-slate6);
+  border-radius: 0.375rem;
+  color: var(--color-slate12);
+  font-family: var(--font-sans);
+  padding: 6px 10px;
+  font-size: 14px;
+  transition: border-color 0.15s ease;
+}
+
+.Input__input:focus {
+  border-color: var(--color-crimson8);
+  box-shadow: 0 0 0 1px var(--color-crimson8);
+  outline: none;
+}
+
+.Input__input::placeholder {
+  color: var(--color-slate9);
+}
+
+/* ════════════════════════════════════════════════════
+   12. FLOATING TOOLBAR (text format)
+   ════════════════════════════════════════════════════ */
+
+.floating-text-format-popup {
+  background-color: var(--color-slate1);
+  border: 1px solid var(--color-slate6);
+  box-shadow: var(--shadow-4);
+  border-radius: 0.5rem;
+}
+
+.floating-text-format-popup button {
+  border-radius: 0.25rem;
+  transition: background-color 0.1s ease;
+}
+
+.floating-text-format-popup button:hover {
+  background-color: var(--color-slate4);
+}
+
+.floating-text-format-popup button.active {
+  background-color: var(--color-yellowA3);
+}
+
+.floating-text-format-popup .popup-item i {
+  background-color: var(--color-slate11);
+}
+
+.floating-text-format-popup .popup-item.active i {
+  background-color: var(--color-yellow12);
+}
+
+.floating-text-format-popup .divider {
+  background-color: var(--color-slate6);
+}
+
+/* ════════════════════════════════════════════════════
+   13. SETTINGS PANEL (switches)
+   ════════════════════════════════════════════════════ */
+
+.switches {
+  background: transparent;
+}
+
+.switches::after {
+  background: linear-gradient(to bottom, transparent, var(--color-slate2));
+}
+
+.switch {
+  color: var(--color-slate11);
+  background-color: var(--color-slate3);
+  border: 1px solid var(--color-slate6);
+  border-radius: 0.5rem;
+  font-family: var(--font-sans);
+}
+
+.switch label {
+  color: var(--color-slate11);
+  font-family: var(--font-sans);
+}
+
+.switch button {
+  background-color: var(--color-slate7);
+}
+
+.switch button[aria-checked='true'] {
+  background-color: var(--color-crimson9);
+}
+
+.switch button:focus-visible {
+  border-color: var(--color-crimson8);
+}
+
+/* ════════════════════════════════════════════════════
+   14. DEBUG / TREE VIEW
+   ════════════════════════════════════════════════════ */
+
+.tree-view-output {
+  background: var(--color-slate12);
+  border-bottom-left-radius: 0.5rem;
+  border-bottom-right-radius: 0.5rem;
+}
+
+pre {
+  background: var(--color-slate12);
+  color: var(--color-slate3);
+  border-radius: 0.375rem;
+}
+
+/* ════════════════════════════════════════════════════
+   15. EDITOR DEV BUTTONS
+   ════════════════════════════════════════════════════ */
+
+.editor-dev-button {
+  background-color: var(--color-slate11);
+  box-shadow: var(--shadow-3);
+}
+
+.editor-dev-button:hover {
+  background-color: var(--color-slate10);
+}
+
+.editor-dev-button.active {
+  background-color: var(--color-crimson9);
+}
+
+/* ════════════════════════════════════════════════════
+   16. COLOR PICKER
+   ════════════════════════════════════════════════════ */
+
+.color-picker-wrapper {
+  background-color: var(--color-slate1);
+  border: 1px solid var(--color-slate6);
+  box-shadow: var(--shadow-4);
+  border-radius: 0.5rem;
+  font-family: var(--font-sans);
+}
+
+/* ════════════════════════════════════════════════════
+   17. IMAGE NODES
+   ════════════════════════════════════════════════════ */
+
+.editor-shell .editor-image img.focused {
+  outline: 2px solid var(--color-crimson8);
+}
+
+.editor-shell .editor-image .image-resizer {
+  background-color: var(--color-crimson9);
+  border: 1px solid var(--color-slate1);
+}
+
+.editor-shell .editor-image .image-caption-container {
+  background-color: var(--color-slateA11);
+  border-top: 1px solid var(--color-slate6);
+}
+
+.editor-shell .editor-image .image-edit-button:hover {
+  background-color: var(--color-crimsonA3);
+}
+
+/* ════════════════════════════════════════════════════
+   18. EXCALIDRAW
+   ════════════════════════════════════════════════════ */
+
+.excalidraw-button.selected {
+  outline: 2px solid var(--color-crimson8);
+}
+
+/* ════════════════════════════════════════════════════
+   19. EQUATION
+   ════════════════════════════════════════════════════ */
+
+.editor-equation.focused {
+  outline: 2px solid var(--color-crimson8);
+}
+
+/* ════════════════════════════════════════════════════
+   20. MENTIONS
+   ════════════════════════════════════════════════════ */
+
+.mention:focus {
+  box-shadow: var(--color-crimsonA5) 0px 0px 0px 2px;
+}
+
+/* ════════════════════════════════════════════════════
+   21. TABLE CELLS
+   ════════════════════════════════════════════════════ */
+
+.table-cell-action-button {
+  color: var(--color-slate11);
+}
+
+/* ════════════════════════════════════════════════════
+   22. FONT SIZE CONTROL
+   ════════════════════════════════════════════════════ */
+
+.font-size-input {
+  color: var(--color-slate12);
+  font-family: var(--font-sans);
+}
+
+/* ════════════════════════════════════════════════════
+   23. SELECTION COLORS
+   ════════════════════════════════════════════════════ */
+
+[data-lexical-editor] ::selection {
+  background-color: var(--color-crimsonA3);
+  color: var(--color-slate12);
+}
+
+/* ════════════════════════════════════════════════════
+   24. FIND & REPLACE
+   ════════════════════════════════════════════════════ */
+
+.find-replace-root {
+  background-color: var(--color-slate1);
+  border: 1px solid var(--color-slate6);
+  box-shadow: var(--shadow-3);
+  font-family: var(--font-sans);
+}
+
+/* ════════════════════════════════════════════════════
+   25. KEYWORD & HASHTAG
+   ════════════════════════════════════════════════════ */
+
+.keyword {
+  color: var(--color-crimson9);
+}
+
+
+/* ════════════════════════════════════════════════════
+   26. EDITOR CONTENT THEME OVERRIDES
+   (PlaygroundEditorTheme class overrides)
+   ════════════════════════════════════════════════════ */
+
+/* Headings — match app typography */
+.PlaygroundEditorTheme__h1 {
+  color: var(--color-slate12);
+  font-weight: 700;
+  font-size: 1.875em;
+  line-height: 1.2;
+  letter-spacing: -0.025em;
+}
+
+.PlaygroundEditorTheme__h2 {
+  color: var(--color-slate12);
+  font-weight: 600;
+  font-size: 1.5em;
+  line-height: 1.3;
+  text-transform: none;
+}
+
+.PlaygroundEditorTheme__h3 {
+  color: var(--color-slate12);
+  font-weight: 600;
+  font-size: 1.25em;
+  line-height: 1.4;
+  text-transform: none;
+}
+
+/* Bold text */
+.PlaygroundEditorTheme__textBold {
+  color: var(--color-slate12);
+}
+
+/* Links — crimson like app */
+.PlaygroundEditorTheme__link {
+  color: var(--color-crimson9);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-color: var(--color-crimsonA5);
+  text-decoration-thickness: 0.0625em;
+  transition: color 0.15s ease;
+}
+
+.PlaygroundEditorTheme__link:hover {
+  color: var(--color-crimson10);
+  text-decoration-color: var(--color-crimsonA9);
+}
+
+/* Inline code */
+.PlaygroundEditorTheme__textCode {
+  background-color: var(--color-slate3);
+  color: var(--color-crimson11);
+  padding: 0.125rem 0.3rem;
+  border-radius: 0.25rem;
+  font-size: 0.875em;
+  font-weight: 500;
+}
+
+/* Code block */
+.PlaygroundEditorTheme__code {
+  background-color: var(--color-slate3);
+  border-radius: 0.5rem;
+  font-size: 0.875em;
+  line-height: 1.6;
+}
+
+.PlaygroundEditorTheme__code:before {
+  background-color: var(--color-slate4);
+  border-right: 1px solid var(--color-slate6);
+  color: var(--color-slate9);
+}
+
+/* Blockquote — match app typography.css */
+.PlaygroundEditorTheme__quote {
+  border-left: 0.12rem dotted var(--color-amberA6);
+  background-color: var(--color-amberA2);
+  padding: 0.5rem 1rem;
+  margin-left: 0;
+  border-radius: 0 0.25rem 0.25rem 0;
+  color: var(--color-slate11);
+  font-weight: 500;
+}
+
+/* Hashtag */
+.PlaygroundEditorTheme__hashtag {
+  background-color: var(--color-yellowA3);
+  border-bottom: 1px solid var(--color-yellowA7);
+  color: var(--color-yellow12);
+}
+
+/* Text highlight */
+.PlaygroundEditorTheme__textHighlight {
+  background: var(--color-yellowA3);
+  border-bottom: 2px solid var(--color-yellowA7);
+}
+
+/* Tables */
+.PlaygroundEditorTheme__table {
+  border-collapse: collapse;
+}
+
+.PlaygroundEditorTheme__tableCell {
+  border: 1px solid var(--color-slate6);
+  padding: 0.5rem 0.75rem;
+  color: var(--color-slate12);
+}
+
+.PlaygroundEditorTheme__tableCellHeader {
+  background-color: var(--color-slate3);
+  color: var(--color-slate12);
+  font-weight: 600;
+  border: 1px solid var(--color-slate6);
+}
+
+.PlaygroundEditorTheme__tableFrozenRow tr:nth-of-type(1) > td {
+  background-color: var(--color-slate1);
+}
+
+.PlaygroundEditorTheme__tableFrozenRow tr:nth-of-type(1) > th {
+  background-color: var(--color-slate3);
+}
+
+.PlaygroundEditorTheme__tableFrozenRow tr:nth-of-type(1) > th:after,
+.PlaygroundEditorTheme__tableFrozenRow tr:nth-of-type(1) > td:after {
+  border-bottom: 1px solid var(--color-slate6);
+}
+
+.PlaygroundEditorTheme__tableFrozenColumn tr > td:first-child {
+  background-color: var(--color-slate1);
+}
+
+.PlaygroundEditorTheme__tableFrozenColumn tr > th:first-child {
+  background-color: var(--color-slate3);
+}
+
+/* Table selection */
+.PlaygroundEditorTheme__tableCellSelected {
+  background-color: var(--color-crimsonA3);
+}
+
+/* List markers */
+.PlaygroundEditorTheme__listItem::marker {
+  color: var(--color-slate9);
+}
+
+/* Horizontal rule */
+.PlaygroundEditorTheme__hr {
+  border: none;
+  border-top: 1px dashed var(--color-slate5);
+  margin: 1.5em 0;
+}
+
+.PlaygroundEditorTheme__hr.selected {
+  outline: 2px solid var(--color-crimson8);
+  border-top-color: transparent;
+}
+
+/* Card node */
+.lexical-card-node {
+  background: var(--color-slate1);
+  border: 1px solid var(--color-slate6);
+  border-radius: 0.75rem;
+  box-shadow: var(--shadow-2);
+}
+
+/* Pullquote node */
+.lexical-pullquote-node {
+  border-left: 4px solid var(--color-crimson8);
+  background: var(--color-crimsonA2);
+  border-radius: 0 0.5rem 0.5rem 0;
+}
+
+/* Review node */
+.lexical-review-node {
+  background: var(--color-slate2);
+  border: 1px solid var(--color-slate6);
+  border-radius: 0.5rem;
+}
+
+/* Block cursor */
+.PlaygroundEditorTheme__blockCursor:after {
+  border-top-color: var(--color-crimson9);
+}

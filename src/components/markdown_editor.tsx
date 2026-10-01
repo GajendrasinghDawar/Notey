@@ -6,6 +6,7 @@ import { OnChangePlugin } from '@lexical/react/LexicalOnChangePlugin'
 import { $generateHtmlFromNodes, $generateNodesFromDOM } from '@lexical/html'
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext'
 import './lexical_playground/index.css'
+import './lexical_playground/theme_overrides.css'
 
 interface MarkDownEditorProps {
   value: string

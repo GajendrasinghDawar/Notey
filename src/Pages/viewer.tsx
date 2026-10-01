@@ -1,5 +1,7 @@
 import { useState, useCallback, useRef, useEffect } from 'react'
 import PlaygroundApp from '@/components/lexical_playground/App'
+import '@/components/lexical_playground/index.css'
+import '@/components/lexical_playground/theme_overrides.css'
 import MarkdownRenderer from '@/components/viewer/markdown_renderer'
 import FileDropZone from '@/components/viewer/file_drop_zone'
 import ViewerToolbar from '@/components/viewer/viewer_toolbar'
