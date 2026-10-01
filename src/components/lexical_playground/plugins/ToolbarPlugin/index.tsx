@@ -1320,7 +1320,7 @@ export default function ToolbarPlugin({
               <span className="shortcut">{SHORTCUTS.CLEAR_FORMATTING}</span>
             </DropDownItem>
           </DropDown>
-          <ExtensionComponent lexical:extension={PagesReactExtension} />
+          <ExtensionComponent {...{"lexical:extension": PagesReactExtension}} />
           {canViewerSeeInsertDropdown && (
             <>
               <Divider />
