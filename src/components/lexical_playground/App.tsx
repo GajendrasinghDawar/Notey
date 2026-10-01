@@ -359,7 +359,6 @@ import {$generateNodesFromDOM} from '@lexical/html';
 import {useEffect, useState} from 'react';
 
 import {$convertFromMarkdownString} from '@lexical/markdown';
-import {PLAYGROUND_TRANSFORMERS} from './plugins/MarkdownTransformers';
 
 function InitialValuePlugin({ value }: { value?: string }) {
   const [editor] = useLexicalComposerContext();
