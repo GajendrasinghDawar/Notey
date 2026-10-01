@@ -19,7 +19,7 @@ export default defineConfig({
       registerType: 'autoUpdate',
 
       // This section configures the service worker generation.
-      workbox: {
+      workbox: { maximumFileSizeToCacheInBytes: 10485760,
         // This ensures that all assets (JS, CSS, images, etc.) in your build
         // output are precached, providing full offline support.
         globPatterns: ['**/*.{js,css,html,ico,png,svg,ttf,woff,woff2}'],
@@ -137,3 +137,4 @@ export default defineConfig({
     },
   },
 })
+

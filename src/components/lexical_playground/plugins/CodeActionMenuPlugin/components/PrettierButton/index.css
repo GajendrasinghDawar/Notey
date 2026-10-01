@@ -1,0 +1,22 @@
+/**
+ * Copyright (c) Meta Platforms, Inc. and affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ */
+
+.code-action-menu-container .prettier-wrapper {
+  position: relative;
+}
+
+.code-action-menu-container .prettier-wrapper .code-error-tips {
+  padding: 5px;
+  border-radius: 4px;
+  color: #fff;
+  background: #222;
+  margin-top: 4px;
+  position: absolute;
+  top: 26px;
+  right: 0;
+}

@@ -1,34 +1,13 @@
 import { useState, useCallback, useRef, useEffect } from 'react'
-import { Editor, EditorProvider } from '@tiptap/react'
-import { Color } from '@tiptap/extension-color'
-import ListItem from '@tiptap/extension-list-item'
-import TextStyle from '@tiptap/extension-text-style'
-import StarterKit from '@tiptap/starter-kit'
-import { Markdown } from 'tiptap-markdown'
-import Link from '@tiptap/extension-link'
-
+import PlaygroundApp from '@/components/lexical_playground/App'
 import MarkdownRenderer from '@/components/viewer/markdown_renderer'
 import FileDropZone from '@/components/viewer/file_drop_zone'
 import ViewerToolbar from '@/components/viewer/viewer_toolbar'
 import RecentFiles from '@/components/viewer/recent_files'
-import MenuBar from '@/components/menubar'
 import { useFileHandler } from '@/hooks/use_file_handler'
 import { useFileLauncher } from '@/hooks/use_file_launcher'
 
-const editorExtensions = [
-  Link.configure({
-    openOnClick: true,
-    autolink: true,
-    defaultProtocol: 'https',
-  }),
-  Markdown.configure({ html: true }),
-  Color.configure({ types: [TextStyle.name, ListItem.name] }),
-  TextStyle.configure({ types: [ListItem.name] } as Record<string, unknown>),
-  StarterKit.configure({
-    bulletList: { keepMarks: true, keepAttributes: true },
-    orderedList: { keepMarks: true },
-  }),
-]
+
 
 /**
  * Try to read the shared file from the SW cache, retrying a few times
@@ -56,7 +35,6 @@ async function readSharedFileFromCache(retries = 3, delay = 150): Promise<string
 
 export default function MarkdownViewer() {
   const [mode, setMode] = useState<'view' | 'edit'>('view')
-  const editorRef = useRef<Editor | null>(null)
   const {
     file,
     isDirty,
@@ -104,31 +82,16 @@ export default function MarkdownViewer() {
   }, [loadReadOnlyFile])
 
   const toggleMode = useCallback(() => {
-    if (mode === 'edit' && editorRef.current) {
-      // Leaving edit mode — pull updated markdown from TipTap
-      const md = editorRef.current.storage.markdown.getMarkdown()
-      updateContent(md)
-    }
     setMode(prev => (prev === 'view' ? 'edit' : 'view'))
-  }, [mode, updateContent])
+  }, [])
 
   const handleSave = useCallback(() => {
-    if (mode === 'edit' && editorRef.current) {
-      const md = editorRef.current.storage.markdown.getMarkdown()
-      saveFile(md)
-    } else {
-      saveFile(file.content)
-    }
-  }, [mode, file.content, saveFile])
+    saveFile(file.content)
+  }, [file.content, saveFile])
 
   const handleSaveAs = useCallback(() => {
-    if (mode === 'edit' && editorRef.current) {
-      const md = editorRef.current.storage.markdown.getMarkdown()
-      saveFileAs(md)
-    } else {
-      saveFileAs(file.content)
-    }
-  }, [mode, file.content, saveFileAs])
+    saveFileAs(file.content)
+  }, [file.content, saveFileAs])
 
   const canSaveBack = file.handle !== null
 
@@ -177,21 +140,10 @@ export default function MarkdownViewer() {
             <MarkdownRenderer content={file.content} onOpenRelativeMd={openRelativeFile} />
           ) : (
             <div className='border border-slate6 rounded-lg overflow-hidden focus-within:border-slate9'>
-              <EditorProvider
-                key={file.fileName + '-editor'}
-                onUpdate={({ editor }) => {
-                  editorRef.current = editor
-                }}
-                onCreate={({ editor }) => {
-                  editorRef.current = editor
-                }}
-                slotBefore={<MenuBar />}
-                extensions={editorExtensions}
-                content={file.content}
-                editorProps={{
-                  attributes: {
-                    class: 'prose focus:outline-none overflow-y-auto h-full px-2 mb-3 min-h-40',
-                  },
+              <PlaygroundApp
+                value={file.content}
+                onChangeMarkdown={(md) => {
+                  updateContent(md)
                 }}
               />
             </div>
